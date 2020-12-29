@@ -16,6 +16,8 @@ I have used a few 'slide shows' to be included on my website and had problems wi
 A slideshow of our trip through [South America in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_en). The same in Dutch: [Zuid-Amerika in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_nl)
 
 ## How to use:
+- Developed on Linux (while travelling), used on Ubuntu 18.04 and 20.04
+- Make sure you have `exiftool`, `imagemagick` and `python3` (of course) installed
 - Create a directory for your templates
 
         mkdir ~/.simgal_templates
