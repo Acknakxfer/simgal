@@ -17,8 +17,8 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 
 ## How to use:
 - Developed on Linux (while travelling), used on Ubuntu 18.04 and 20.04
-- Make sure you have `exiftool` (from `libimage-exiftool-perl`), `convert` (from `imagemagick`) and `python3` (of course) installed
-- Put a (small) selection of your original (full-res) pictures in a separate directory (symlinks OK)
+- Make sure you have `exiftool` (from `libimage-exiftool-perl`), `convert` (from `imagemagick`) and `python3` installed
+- Put your selection of your original (full-res) pictures in a separate directory anywhere on your filesystem (symlinks OK)
 - Create a directory for your templates
 
         mkdir ~/.simgal_templates
