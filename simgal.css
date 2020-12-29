@@ -1,0 +1,114 @@
+/*
+ * name		: $RCSfile: simgal.css,v $ $Revision: 1.3 $
+ * issued	: $Date: 2019/04/17 18:07:42 $
+ * description	: CSS for SIMple GALlery
+ *
+ * copyright ©	: CHOAM, Sur les Fontaines 58, 4990 Lierneux, Belgium
+ * author	: Adriaan van Nijendaal <adriaan@choam.com>
+ *
+ */
+
+html {	/* background-image: url(../blur/???.jpg); is set in-line for each slide */
+	background-size: cover;
+	min-width: 100%;
+	min-height: 100%;
+	color: yellow; /* make ALL text yellow */
+	font-size: 200% /* and large */
+}
+
+/* Thumbnail page on a normal dpi screen: */
+
+div.gal_index {
+	display: inline-block; /* to get a responsive grid of divs */
+	height: 204px; /* height of thumbnail plus border of img (below) */
+	width: auto;
+	line-height: 204px; /* same as height (for vertical centering) */
+	text-align: center; /* for horizontal centering */
+	border: none;
+	margin: 5px;
+}
+
+img.gal_index {
+	height: 200px; /* exact same number as resolution of thumbnails */
+	max-width: 100%;
+	margin: 0px;
+	vertical-align: middle; /* put img in the middle of line-height (above) */
+	border: solid black 2px;
+}
+
+/* Thumbnail page: differences for a high dpi screen */
+
+@media only screen and (min--moz-device-pixel-ratio: 1.5) {
+
+	div.gal_index {
+		height: 204px; /* height of thumbnail plus border of img (below) */
+		width: auto;
+		line-height: 204px; /* same as height (for vertical centering) */
+		margin: 10px;
+		font-size: 200%;
+	}
+
+	img.gal_index {
+		height: 200px; /* exact same number as resolution of thumbnails */
+		overflow: hidden;
+		border: solid black 8px;
+	}
+
+}
+
+/* Slide page on a normal dpi screen */
+
+figure.gal_slide {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+img.gal_slide {
+	display: block;
+	max-width: 90vw;
+	max-height: 90vh;
+	margin: auto;
+	border: solid black 2px;
+}
+
+table.gal_slide {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	/* color: yellow; color is set for html element */
+	/* Style the table and place it in the middle of the container/image */
+	position: absolute;
+	left: 50%;
+	bottom: 0%;
+	transform: translate(-50%, -50%);
+	padding: 8px 16px;
+}
+
+table.gal_slide:hover {
+  background-color: black;
+}
+
+a.gal_slide:link, a.gal_slide:hover, a.gal_slide:visited, a.gal_slide:active  {
+	text-decoration: none;
+	color: yellow; /* color is set for html element, but not for visited etc */
+}
+
+/* Slide page: differences for high dpi screen */
+
+@media only screen and (min--moz-device-pixel-ratio: 1.5) {
+
+	.gal_slide {
+		font-size: 100%; /* note that the font size was already at 200% */
+	}
+
+}
+
+/* Generic defines */
+
+.center {
+	text-align: center;
+}
+
+/* vim:set textwidth=0 ft=css: */

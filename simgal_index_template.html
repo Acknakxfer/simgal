@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+# name		: $RCSfile: simgal_index_template.html,v $ $Revision: 1.1 $
+# issued	: $Date: 2016/11/24 16:04:27 $
+# description	: index.html file for SIMple GALlery
+#
+# copyright ©	: CHOAM, Sur les Fontaines 58, 4990 Lierneux, Belgium
+# author	: Adriaan van Nijendaal <adriaan@choam.com>
+#
+# id		: $Id: simgal_index_template.html,v 1.1 2016/11/24 16:04:27 adriaan Exp $
+# -->
+<html lang="en">
+  <head>
+    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.3.7">
+    <meta charset="utf-8">
+    <link href="simgal.css" rel="stylesheet">
+    <title>
+      $GalleryTitle
+    </title>
+    <style type="text/css">
+    html {
+    background-image: url(../$ThumbResolution/${CurrentSlide}_blur.jpg);
+    }
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <h1>
+        $GalleryTitle
+      </h1>
+      <!-- simgal: start of slide -->
+      <div class="gal_index">
+        <a href="${CurrentSlide}.html"><img class="gal_index" src="../$ThumbResolution/${CurrentSlide}.jpg" alt="${CurrentSlide}"></a>
+      </div>
+      <!-- simgal: end of slide -->
+    </div><!-- vim:set textwidth=120 ft=html: -->
+  </body>
+</html>
