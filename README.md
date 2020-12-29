@@ -10,7 +10,7 @@ Simple Gallery: A generator (in Python) for static HTML5 slide files with geoloc
 - Generate an index file (that is called index.html) and have everything neatly in one directory (with sub-dirs)
 
 ## Reasoning:
-I have used a few 'slide shows' to be included on my website and had problems with changing PHP or HTML versions, changing Apache configs, poorly maintained code, code that mixes languages (PHP and HTML), etc. I just want to show (some) pictures with a (multi-lingual) caption, minimal navigation and an URL to show a geolocation and never worry about it again. (The oldest part of my website is 20+ years old and I've gotten tired of going back in and maintaining stuff because something broke my slideshow.) I'm OK with having a separate HTML file for each picture, but the directories need to be separate.
+I have used a few 'slide shows' to be included on my website and had problems with changing PHP or HTML versions, changing Apache configs, poorly maintained code, code that mixes languages (PHP and HTML), etc. I just want to show (some) pictures with a (multi-lingual) caption, minimal navigation and an URL to show a geolocation and never worry about it again. (The oldest part of my website is 20+ years old and I've gotten tired of going back in and maintaining stuff because something broke my slideshow.) I'm OK with having a separate HTML file for each picture. I do like to keep file types and languages in separate sub-directories.
 
 ## Example:
 A slideshow of our trip through [South America in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_en). The same in Dutch: [Zuid-Amerika in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_nl)
