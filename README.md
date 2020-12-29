@@ -14,3 +14,18 @@ I have used a few 'slide shows' to be included on my website and had problems wi
 
 ## Example:
 A slideshow of our trip through [South America in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_en). The same in Dutch: [Zuid-Amerika in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_nl)
+
+## How to use:
+- Create a directory for your templates
+
+        mkdir ~/.simgal_templates
+- Copy `simgal_index_template.html`, `simgal_slide_template.html`, `simgal.css` and `map-pin.svg` into it
+- Change directories to the place where you keep your website (directory tree) and create `slideshow`
+
+        mkdir slideshow
+        cd slideshow
+- Copy `simgal.py` and `America_en.ini` into it and edit to suit your needs
+- Start generating:
+
+        ./simgal.py --verbose --verbose America_en.ini
+- Start browsing at `http://<website directory tree>/slideshow/simgal_en` (assuming your language is `en`)
