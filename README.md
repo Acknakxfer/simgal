@@ -18,6 +18,7 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 ## How to use:
 - Developed on Linux (while travelling), used on Ubuntu 18.04 and 20.04
 - Make sure you have `exiftool`, `imagemagick` and `python3` (of course) installed
+- Put a (small) selection of your original (full-res) pictures in a separate directory (symlinks OK)
 - Create a directory for your templates
 
         mkdir ~/.simgal_templates
@@ -26,11 +27,11 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 
         mkdir slideshow
         cd slideshow
-- Copy `simgal.py` and `America_en.ini` into it and edit to suit your needs
+- Copy `simgal.py` and `America_en.ini` into it and edit to suit your needs: language, title, source dir with images, resolutions and captions
 - Start generating:
 
         ./simgal.py --verbose --verbose America_en.ini
-- Start browsing at `http://<website directory tree>/slideshow/simgal_en/` (assuming your language is `en` and your webserver tries to open index.* in any directory)
+- Browse at `http://<website directory tree>/slideshow/simgal_en/` (assuming your language is `en` and your webserver tries to open index.* in any directory)
 
 ## Warning:
 This the first Python (and HTML5) code I ever wrote.
