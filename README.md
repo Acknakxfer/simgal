@@ -35,3 +35,15 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 
 ## Warning:
 This the first Python (and HTML5) code I ever wrote.
+
+
+
+
+
+<!-- 
+# name		: $RCSfile: README.md,v $ $Revision: 1.1 $
+# issued	: $Date: 2020/12/30 08:17:20 $
+# id		: $Id: README.md,v 1.1 2020/12/30 08:17:20 adriaan Exp $
+
+# vim:set textwidth=0 ft=markdown:
+-->

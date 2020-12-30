@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 #
-# name        : $RCSfile: simgal.py,v $ $Revision: 1.9 $
-# issued      : $Date: 2019/07/07 15:36:04 $
+# name        : $RCSfile: simgal.py,v $ $Revision: 1.10 $
+# issued      : $Date: 2020/12/30 08:24:58 $
 # description : Simple Gallery generator
 #
-# copyright   : CHOAM, Sur les Fontaines 58, 4990 Lierneux, Belgium
-# author      : Adriaan van Nijendaal <adriaan@choam.com>
-#
-# id          : $Id: simgal.py,v 1.9 2019/07/07 15:36:04 adriaan Exp $
+# id          : $Id: simgal.py,v 1.10 2020/12/30 08:24:58 adriaan Exp $
 #
 
 # NOTE that this works with Python version 3.5 and up.
