@@ -31,19 +31,17 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 - Start generating:
 
         ./simgal.py --verbose --verbose America_en.ini
-- Browse at `http://<website directory tree>/slideshow/simgal_en/` (assuming your language is `en` and your webserver tries to open index.* in any directory)
+- Open the index page straight from the filesystem: `firefox file://<website path>/slideshow/simgal_en/index.html` (Note that `<website path>` starts with a `/`, giving a total of 3 of them)
+- Or, if you have a local HTTP server (that opens `index.*` when passed a directory): `http://localhost/<website path>/slideshow/simgal_en/`
 
 ## Warning:
 This the first Python (and HTML5) code I ever wrote.
 
 
-
-
-
 <!-- 
-# name		: $RCSfile: README.md,v $ $Revision: 1.1 $
-# issued	: $Date: 2020/12/30 08:17:20 $
-# id		: $Id: README.md,v 1.1 2020/12/30 08:17:20 adriaan Exp $
+# name		: $RCSfile: README.md,v $ $Revision: 1.2 $
+# issued	: $Date: 2020/12/30 09:05:24 $
+# id		: $Id: README.md,v 1.2 2020/12/30 09:05:24 adriaan Exp $
 
 # vim:set textwidth=0 ft=markdown:
 -->
