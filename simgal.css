@@ -1,6 +1,6 @@
 /*
- * name		: $RCSfile: simgal.css,v $ $Revision: 1.4 $
- * issued	: $Date: 2020/12/30 08:19:24 $
+ * name		: $RCSfile: simgal.css,v $ $Revision: 1.5 $
+ * issued	: $Date: 2021/01/03 12:52:25 $
  * description	: CSS for SIMple GALlery
  *
  */
@@ -10,7 +10,8 @@ html {	/* background-image: url(../blur/???.jpg); is set in-line for each slide 
 	min-width: 100%;
 	min-height: 100%;
 	color: yellow; /* make ALL text yellow */
-	font-size: 200% /* and large */
+	font-size: 200%; /* and large */
+	text-shadow: 5px 5px 10px black, 5px -5px 10px black, -5px 5px 10px black, -5px -5px 10px black; /* black blurry shadows in all directions */
 }
 
 /* Thumbnail page on a normal dpi screen: */
