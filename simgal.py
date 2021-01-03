@@ -4,16 +4,13 @@
 # issued      : $Date: 2020/12/30 08:24:58 $
 # description : Simple Gallery generator
 #
-# id          : $Id: simgal.py,v 1.10 2020/12/30 08:24:58 adriaan Exp $
+# id          : $Id: simgal.py,v 1.10 2020/12/30 08:24:58 adriaan Exp adriaan $
 #
-
 # NOTE that this works with Python version 3.5 and up.
-
-# TODO
-# finish Google Maps URL (IF exif has geoloc) (see below)
+# TODO sanitize Google Maps URL? (see below)
 
 # IMPORTS
-import os, argparse, shutil, subprocess
+import os, argparse, shutil, subprocess, sys
 # to read ini files:
 from configparser import RawConfigParser, ExtendedInterpolation
 # to fill out templates:
@@ -34,6 +31,9 @@ configdict = { 'Language': 'en',
 # Parse the command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("configfile", help="The name of an .ini file containing the settings and filenames of the slideshow")
+parser.add_argument("-f", "--force", action="store_true", default=False, help="Force overwriting all HTML, CSS and SVG files")
+parser.add_argument("-c", "--convert", action="store_true", default=False, help="Force (re)conversion of all JPG files")
+parser.add_argument("-n", "--numbers", action="store_true", default=False, help="Add a \"slide #/count #\" to slides without caption")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase progress output (repeat for more)")
 parser.add_argument("-d", "--debug", action="store_true", default=False, help="Add the resolution (in text) to the pictures (for HTML debugging purposes)")
 args = parser.parse_args()
@@ -59,46 +59,65 @@ for resolution in iniconfig.options('Resolutions'):
         os.makedirs(iniconfig['Resolutions'][resolution])
         os.chmod(iniconfig['Resolutions'][resolution], 0o755)
 
-# Make sure path(s) are OK
+# Make sure path(s) form config file are OK; ABORT if one is missing
 if not os.path.exists(configdict['OrgSlidePath']):
-    print('Error: path to original slides (OrgSlidePath: '+configdict['OrgSlidePath']+') is invalid')
+    sys.exit('Error: path to original slides (OrgSlidePath: '+configdict['OrgSlidePath']+') is invalid')
 if not os.path.exists(configdict['IndexTemplate']):
-    print('Error: index template file path (IndexTemplate: '+configdict['IndexTemplate']+') is invalid')
+    sys.exit('Error: index template file path (IndexTemplate: '+configdict['IndexTemplate']+') is invalid')
 if not os.path.exists(configdict['SlideTemplate']):
-    print('Error: slide template file path (SlideTemplate: '+configdict['SlideTemplate']+') is invalid')
+    sys.exit('Error: slide template file path (SlideTemplate: '+configdict['SlideTemplate']+') is invalid')
 if not os.path.exists(configdict['CSSTemplate']):
-    print('Error: CSS template file path (CSSTemplate: '+configdict['CSSTemplate']+') is invalid')
+    sys.exit('Error: CSS template file path (CSSTemplate: '+configdict['CSSTemplate']+') is invalid')
 
-# remove from, then copy the CSS file into the output dir; set to 644
-cssfile=os.path.join(htmldir, os.path.basename(configdict['CSSTemplate']))
-if os.path.exists(cssfile):
-    os.remove(cssfile)
-shutil.copy(configdict['CSSTemplate'], cssfile)
-os.chmod(cssfile, 0o644)
-# replace map-pin.svg
-pinfile=os.path.join(htmldir, "map-pin.svg")
-if os.path.exists(pinfile):
-    os.remove(pinfile)
-shutil.copy(os.path.join(configdict['TemplatePath'], "map-pin.svg"), pinfile)
-os.chmod(pinfile, 0o644)
+# (re)copy the CSS file into the output dir; set to 644
+cssdest=os.path.join(htmldir, os.path.basename(configdict['CSSTemplate']))
+# remove existing CSS (if 'force' was requested)
+if os.path.exists(cssdest) and args.force == True:
+    os.remove(cssdest)
+# put a new one in place
+if not os.path.exists(cssdest):
+    shutil.copy(configdict['CSSTemplate'], cssdest)
+# set it to 644
+os.chmod(cssdest, 0o644)
+
+# copy all SVG files to the HTML destination directory.
+svgfiles = [ 'map-pin.svg', 'arrow-up.svg', 'arrow-down.svg', 'arrow-left.svg', 'arrow-right.svg' ]
+for svg in svgfiles:
+    # complain if SVG doesn't exist, but go on (generated HTML will be valid)
+    svgsource=os.path.join(configdict['TemplatePath'], svg)
+    if not os.path.exists(svgsource):
+        print('Error: SVG file ('+svgsource+') is missing; continuing')
+        continue
+    # (re)copy SVG (from 'svgsource', above)
+    svgdest=os.path.join(htmldir, svg)
+    # remove existing SVG for destination (if 'force' was requested)
+    if os.path.exists(svgdest) and args.force == True:
+        os.remove(svgdest)
+    if not os.path.exists(svgdest):
+        shutil.copy(svgsource, svgdest)
+    # set it to 644
+    os.chmod(svgdest, 0o644)
 
 # Define a list of tuples: each tuple holds the trunk of the slidename[0], the
 # extension of the slidename [1], the caption for that slide [2] and the
 # gpsposition [3] in the array slidelist[]
 slidelist = []
 if args.verbose >= 1:
-    print('Converting slides (unless already converted)')
+    if args.convert:
+        print('Converting ALL slides')
+    else:
+        print('Converting NEW slides')
 # Iterate all slides in the 'Slides' section, make tuples in the slidelist and scale the images
 for slide in iniconfig['Slides']:
     if args.verbose >= 2:
         print('Checking/converting: ', slide)
-    jpgfile = os.path.join(configdict['OrgSlidePath'], slide)
-    if not os.path.exists(jpgfile):
-        print("File ",jpgfile," does NOT exist and will be skipped.")
+    jpgsource = os.path.join(configdict['OrgSlidePath'], slide)
+    if not os.path.exists(jpgsource):
+        print("File ",jpgsource," does NOT exist and will be skipped.")
         continue
 
     # Extract GPS location from the file (if any)
-    cmd='exiftool -gpsposition -c \"%+.6f\" \"'+jpgfile+'\"'
+    cmd='exiftool -gpsposition -c \"%+.6f\" \"'+jpgsource+'\"'
     gpsposition=(subprocess.check_output(cmd, shell=True)).decode("UTF-8")
     # clean up string, remove whitespace and leading "GPS Position                    : " string
     gpsposition=gpsposition.strip()
@@ -112,14 +131,14 @@ for slide in iniconfig['Slides']:
     # start scaling to the 4 resolutions
     for resolution in iniconfig['Resolutions']:
         target=os.path.join(iniconfig['Resolutions'][resolution],slide)
-        if os.path.exists(target):
-            continue # when the file is already there
+        if os.path.exists(target) and args.convert == False:
+            continue # when the file is already there AND no new conversion was requested
         if args.debug == False:
             # convert the file
-            cmd='convert \"'+jpgfile+'\" -geometry '+iniconfig['Resolutions'][resolution]+' \"'+target+'\"'
+            cmd='convert \"'+jpgsource+'\" -geometry '+iniconfig['Resolutions'][resolution]+' \"'+target+'\"'
         else:
             # convert the file, but put the resolution in the file (for HTML5 debugging)
-            cmd='convert \"'+jpgfile+'\" -geometry '+iniconfig['Resolutions'][resolution]+' -font Arial -pointsize 50 -draw \"gravity north fill black text 0,12 res_'+iniconfig['Resolutions'][resolution]+' fill white text 1,11 res_'+iniconfig['Resolutions'][resolution]+'\" \"'+target+'\"'
+            cmd='convert \"'+jpgsource+'\" -geometry '+iniconfig['Resolutions'][resolution]+' -font Arial -pointsize 50 -draw \"gravity north fill black text 0,12 res_'+iniconfig['Resolutions'][resolution]+' fill white text 1,11 res_'+iniconfig['Resolutions'][resolution]+'\" \"'+target+'\"'
         if args.verbose >= 2:
             print('Now running: ', cmd)
         subprocess.run(cmd, shell=True)
@@ -129,7 +148,7 @@ for slide in iniconfig['Slides']:
     blur=os.path.join(iniconfig['Resolutions']['ThumbResolution'],os.path.splitext(slide)[0]+'_blur'+os.path.splitext(slide)[1])
     if os.path.exists(blur):
         continue # when the file is already there
-    cmd='convert \"'+jpgfile+'\" -geometry '+iniconfig['Resolutions']['ThumbResolution']+' -blur 0x5 \"'+blur+'\"'
+    cmd='convert \"'+jpgsource+'\" -geometry '+iniconfig['Resolutions']['ThumbResolution']+' -blur 0x5 \"'+blur+'\"'
     if args.verbose >= 2:
         print('Now running: ', cmd)
     subprocess.run(cmd, shell=True)
@@ -174,10 +193,12 @@ for x in range(0, maxx):
     if slidelist[x][2]:
         configdict['SlideCaption']=slidelist[x][2]
     else:
-	# display number and count of slides
-        # configdict['SlideCaption']=str(configdict['SlideNumber'])+' / '+str(configdict['SlideCount'])
-	# display nothing
-        configdict['SlideCaption']=""
+        if args.numbers == True:
+            # display number and count of slides
+            configdict['SlideCaption']=str(configdict['SlideNumber'])+' / '+str(configdict['SlideCount'])
+        else:
+            # display nothing
+            configdict['SlideCaption']=""
 
     # Put the GPS Position in the configdict
     # TODO to worry about URL encoding, or not?
@@ -187,7 +208,7 @@ for x in range(0, maxx):
         configdict['GPSPosition']=""
 
     # on the last slide: point to the first slide, otherwise to the next slide
-    if x==maxx-1:
+    if x == maxx-1:
         configdict['NextSlide']=slidelist[0][0]
     else:
         configdict['NextSlide']=slidelist[x+1][0]
@@ -208,7 +229,7 @@ for x in range(0, maxx):
     # write the file if it does not exist, if the NEXT file does not exist
     # (the current needs to point to that one), when it's the first or the last
     # (they point to each other too).
-    if not os.path.exists(target) or not os.path.exists(nexttarget) or x == 0 or x == maxx-1:
+    if args.force == True or not os.path.exists(target) or not os.path.exists(nexttarget) or x == 0 or x == maxx-1:
         # Write the HTML file
         slidefile=open(target, 'w')
         if args.verbose >= 2:
@@ -229,13 +250,13 @@ for x in range(0, maxx):
         slidefile.close()
         # make sure Apache can read it
         os.chmod(target, 0o644)
-        # end of if this, next exists or first and last
+        # end of if "force, this, next exists or first and last"
     # previous is the current for the next iteration
     configdict['PreviousSlide']=configdict['CurrentSlide']
     # end of for x from 0 to max slide number
 
 # Wrapping up: finish the index.html file
-# This is not efficient: we're re-reading the whole file. Fortunately it's small...
+# This is not efficient: we're re-reading the whole source index file. Fortunately it's small...
 if args.verbose >= 1:
     print('Finishing index HTML file')
 matched=False
@@ -252,4 +273,4 @@ indexfile.close()
 # make sure Apache can read it
 os.chmod(os.path.join(htmldir,'index.html'), 0o644)
 
-# vim:set textwidth=0 ft=python:
+# vim:set textwidth=0 ft=python tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab:
