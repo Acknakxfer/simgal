@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 #
-# name        : $RCSfile: simgal.py,v $ $Revision: 1.10 $
-# issued      : $Date: 2020/12/30 08:24:58 $
+# name        : $RCSfile: simgal.py,v $ $Revision: 1.11 $
+# issued      : $Date: 2021/01/03 13:36:19 $
 # description : Simple Gallery generator
 #
-# id          : $Id: simgal.py,v 1.10 2020/12/30 08:24:58 adriaan Exp adriaan $
+# id          : $Id: simgal.py,v 1.11 2021/01/03 13:36:19 adriaan Exp $
 #
 # NOTE that this works with Python version 3.5 and up.
 # TODO sanitize Google Maps URL? (see below)
