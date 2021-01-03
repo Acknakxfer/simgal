@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
-# name		: $RCSfile: simgal_slide_template.html,v $ $Revision: 1.6 $
-# issued	: $Date: 2020/12/30 09:31:48 $
+# name		: $RCSfile: simgal_slide_template.html,v $ $Revision: 1.7 $
+# issued	: $Date: 2021/01/03 12:53:13 $
 # description	: slide.html file for SIMple GALlery
 #
-# id		: $Id: simgal_slide_template.html,v 1.6 2020/12/30 09:31:48 adriaan Exp $
+# id		: $Id: simgal_slide_template.html,v 1.7 2021/01/03 12:53:13 adriaan Exp $
 # -->
 <html lang="$Language">
   <head>
@@ -30,10 +30,10 @@
         <table class="gal_slide">
           <tr>
             <td>
-              <a class="gal_slide" href="$PreviousSlide.html">&lt;</a>&nbsp;&nbsp;
+              <a class="gal_slide" href="$PreviousSlide.html"><img src="arrow-left.svg"></a>&nbsp;&nbsp;
             </td>
             <td>
-              &nbsp;<a class="gal_slide" href="index.html">^</a>
+              &nbsp;<a class="gal_slide" href="index.html"><img src="arrow-up.svg"></a>
             </td>
             <td>
               $SlideCaption
@@ -45,7 +45,7 @@
               <!-- simgal: end of if geoloc -->
             </td>
             <td>
-              &nbsp;<a class="gal_slide" href="$NextSlide.html">&gt;</a>
+              &nbsp;<a class="gal_slide" href="$NextSlide.html"><img src="arrow-right.svg"></a>
             </td>
           </tr>
         </table>
