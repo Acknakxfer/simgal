@@ -8,6 +8,7 @@ Simple Gallery: A generator (in Python) for static HTML5 slide files with geoloc
 - Support for geolocation (if the image has GPS coordinates)
 - Optimize served image size for the viewer's screen
 - Generate an index file (that is called index.html) and have everything neatly in one directory (with sub-dirs)
+- Avoid unnecessary uploads to the web server after extensions (do not re-generate HTML or re-convert JPGs unless instructed) 
 
 ## Reasoning:
 I have used a few 'slide shows' to be included on my website and had problems with changing PHP or HTML versions, changing Apache configs, poorly maintained code, code that mixes languages (PHP and HTML), etc. I just want to show (some) pictures with a (multi-lingual) caption, minimal navigation and an URL to show a geolocation and never worry about it again. (The oldest part of my website is 20+ years old and I've gotten tired of going back in and maintaining stuff because something broke my slideshow.) I'm OK with having a separate HTML file for each picture. I do like to keep file types and languages in separate sub-directories.
@@ -15,33 +16,45 @@ I have used a few 'slide shows' to be included on my website and had problems wi
 ## Example:
 A slideshow of our trip through [South America in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_en). The same in Dutch: [Zuid-Amerika in 2018](https://www.choam.com/2018_uy-co/slideshow/simgal_nl)
 
-## How to use:
+## How to 'install':
 - Developed on Linux (while travelling), used on Ubuntu 18.04 and 20.04
 - Make sure you have `exiftool` (from `libimage-exiftool-perl`), `convert` (from `imagemagick`) and `python3` installed
 - Put your selection of your original (full-res) pictures in a separate directory anywhere on your filesystem (symlinks OK). This directory will be read but not altered in any way. 
 - Create a directory for your templates
 
         mkdir ~/.simgal_templates
-- Copy `simgal_index_template.html`, `simgal_slide_template.html`, `simgal.css` and `map-pin.svg` into it
+
+- Copy `simgal_index_template.html`, `simgal_slide_template.html`, `simgal.css` and all `.svg`s into it
 - Change directories to the place where you keep your website (directory tree) and create `slideshow`
 
         mkdir slideshow
         cd slideshow
+
 - Copy `simgal.py` and `America_en.ini` into it and edit to suit your needs: language, title, source dir with images, resolutions. AND one line for each slide (with optional captions)
 - Start generating:
 
-        ./simgal.py --verbose --verbose America_en.ini
-- Open the index page straight from the filesystem: `firefox file://<website path>/slideshow/simgal_en/index.html` (Note that `<website path>` starts with a `/`, giving a total of 3 of them)
-- Or, if you have a local HTTP server (that opens `index.*` when passed a directory): `http://localhost/<website path>/slideshow/simgal_en/`
+        python3 simgal.py --verbose --verbose America_en.ini
+
+- Open the index page straight from the filesystem: `firefox file://<website path>/slideshow/simgal_en/index.html` (Note that if `<website path>` starts with a `/`, there will be a total of 3 of slashes ('/'))
+- Or, if you have a local HTTP server (that opens `index.html` when passed a directory): `http://localhost/<website path>/slideshow/simgal_en/`
+
+## Usage:
+There are a few options:
+
+- **--help** will print a help message
+- **--force** will (re)generate all HTML files and (re)copy the CSS and SVGs. This will mostly result in generating files that are identical to the existing ones but with another timestamp, causing a new transfer to the web server (annoying when you're using slow internet while travelling). By default (without *force*), only the first and last HTML will be regenerated, allowing for additions (while you travel) to existing, published slideshows.
+- **--convert** will similarly re-convert all JPGs. This is costly, both in CPU time and it *will* cause a major transfer to the web server.
+- **--numbers** will substitute *slidenumber / slidecount* for all slides that do not have a caption.
+- **--verbose** Increases output (repeat for more output)
+- **--debug** Adds the resolution in text to the JPGs (so one can see what resolution is server on small(er) screens). Should be used with *force*.
 
 ## Warning:
 This the first Python (and HTML5) code I ever wrote.
 
-
 <!-- 
-# name		: $RCSfile: README.md,v $ $Revision: 1.2 $
-# issued	: $Date: 2020/12/30 09:05:24 $
-# id		: $Id: README.md,v 1.2 2020/12/30 09:05:24 adriaan Exp $
+# name		: $RCSfile: README.md,v $ $Revision: 1.4 $
+# issued	: $Date: 2021/01/03 13:28:23 $
+# id		: $Id: README.md,v 1.4 2021/01/03 13:28:23 adriaan Exp $
 
 # vim:set textwidth=0 ft=markdown:
 -->
