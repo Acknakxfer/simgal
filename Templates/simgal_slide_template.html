@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+# name		: $RCSfile: simgal_slide_template.html,v $ $Revision: 1.7 $
+# issued	: $Date: 2021/01/03 12:53:13 $
+# description	: slide.html file for SIMple GALlery
+#
+# id		: $Id: simgal_slide_template.html,v 1.7 2021/01/03 12:53:13 adriaan Exp $
+# -->
+<html lang="$Language">
+  <head>
+    <meta charset="utf-8">
+    <link href="simgal.css" rel="stylesheet">
+    <link rel="prefetch" href="$NextSlide.html">
+    <title>
+      $CurrentSlide
+    </title>
+    <style type="text/css">
+    html {
+    background-image: url(../$ThumbResolution/${CurrentSlide}_blur.jpg);
+    }
+    </style>
+  </head>
+  <body>
+    <figure class="gal_slide">
+      <a href="$NextSlide.html"><img class="gal_slide" src="../$SmallResolution/$CurrentSlide.jpg" alt="$CurrentSlide"
+      srcset="../$SmallResolution/$CurrentSlide.jpg ${SmallResolutionWidth}w,
+		../$MediumResolution/$CurrentSlide.jpg ${MediumResolutionWidth}w"></a> <!-- 
+		../$LargeResolution/$CurrentSlide.jpg ${LargeResolutionWidth}w"></a> -->
+      <figcaption>
+        <table class="gal_slide">
+          <tr>
+            <td>
+              <a class="gal_slide" href="$PreviousSlide.html"><img src="arrow-left.svg"></a>&nbsp;&nbsp;
+            </td>
+            <td>
+              &nbsp;<a class="gal_slide" href="index.html"><img src="arrow-up.svg"></a>
+            </td>
+            <td>
+              $SlideCaption
+            </td>
+            <td>
+              &nbsp;
+              <!-- simgal: if geoloc -->
+	      <a class="gal_slide" target="_blank" href="http://www.google.com/maps/search/?api=1&hl=$Language&query=$GPSPosition"><img src="map-pin.svg"></a>
+              <!-- simgal: end of if geoloc -->
+            </td>
+            <td>
+              &nbsp;<a class="gal_slide" href="$NextSlide.html"><img src="arrow-right.svg"></a>
+            </td>
+          </tr>
+        </table>
+      </figcaption>
+    </figure><!-- vim:set textwidth=120 ft=html: -->
+  </body>
+</html>
