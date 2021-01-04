@@ -20,8 +20,9 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 - Developed on Linux (while travelling through South-America), used on Ubuntu 18.04 and 20.04. Should work on all distro's (with changes to this install procedure).
 - Download the ZIP file and unpack it *or* use `git clone`
 
-         unzip simgal-main.zip  # if using ZIP
-         cd simgal*             # `simgal-main` for ZIP file, `simgal` for `git clone`
+         git clone https://github.com/Acknakxfer/simgal.git # using git; OR:
+         unzip simgal-main.zip                              # if using ZIP
+         cd simgal*                                         # simgal-main for ZIP file, simgal for git clone
 
 - Move the contents of the Templates folder to a hidden folder in your $HOME directory
 
@@ -33,9 +34,9 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
          chmod 755 simgal.py
          sudo mv -i simgal.py /usr/bin/simgal
 
-- Put your selection of your original (full-res) pictures in a separate directory anywhere on your filesystem (symlinks OK). This directory will not be altered in any way by this script. See the provided America_en.ini for an example (OrgSlidePath).
+- Put a selection of your original (full-res) pictures in a separate directory anywhere on your filesystem (symlinks can be used to combine slides from different folders). The script will not change anything in this directory with your originals. See (OrgSlidePath) in the provided America_en.ini for an example.
 
-- Change directories to the place where you keep your website (directory tree) and create `slideshow` folder and at least one `.ini` file
+- Change directories to the place where you keep your website (directory tree) and create a `slideshow` folder and at least one `.ini` file
 
         mkdir slideshow
         cd slideshow
@@ -49,7 +50,7 @@ A slideshow of our trip through [South America in 2018](https://www.choam.com/20
 
         simgal --numbers --verbose --verbose America_en.ini
 
-- Open the index page straight from the filesystem: `firefox file://<website path>/slideshow/simgal_en/index.html` (Note that if `<website path>` starts with a `/`, there will be a total of 3 of slashes ('/'))
+- Open the index page straight from the filesystem: `firefox simgal_en/index.html`
 - Or, if you have a local HTTP server (that opens `index.html` when passed a directory): `http://localhost/<website path>/slideshow/simgal_en/`
 
 The script accepts these options:
@@ -65,9 +66,9 @@ The script accepts these options:
 This the first Python (and HTML5) code I ever wrote. I'd appreciate if you'd let me know if you find issues or when you have suggestions.
 
 <!-- 
-# name		: $RCSfile: README.md,v $ $Revision: 1.6 $
-# issued	: $Date: 2021/01/04 09:38:24 $
-# id		: $Id: README.md,v 1.6 2021/01/04 09:38:24 adriaan Exp $
+# name		: $RCSfile: README.md,v $ $Revision: 1.7 $
+# issued	: $Date: 2021/01/04 10:15:10 $
+# id		: $Id: README.md,v 1.7 2021/01/04 10:15:10 adriaan Exp $
 
 # vim:set textwidth=0 ft=markdown:
 -->
