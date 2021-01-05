@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
-# name		: $RCSfile: simgal_slide_template.html,v $ $Revision: 1.7 $
-# issued	: $Date: 2021/01/03 12:53:13 $
+# name		: $RCSfile: simgal_slide_template.html,v $ $Revision: 1.8 $
+# issued	: $Date: 2021/01/05 09:06:53 $
 # description	: slide.html file for SIMple GALlery
 #
-# id		: $Id: simgal_slide_template.html,v 1.7 2021/01/03 12:53:13 adriaan Exp $
+# id		: $Id: simgal_slide_template.html,v 1.8 2021/01/05 09:06:53 adriaan Exp $
 # -->
 <html lang="$Language">
   <head>
@@ -23,29 +23,34 @@
   <body>
     <figure class="gal_slide">
       <a href="$NextSlide.html"><img class="gal_slide" src="../$SmallResolution/$CurrentSlide.jpg" alt="$CurrentSlide"
-      srcset="../$SmallResolution/$CurrentSlide.jpg ${SmallResolutionWidth}w,
-		../$MediumResolution/$CurrentSlide.jpg ${MediumResolutionWidth}w"></a> <!-- 
-		../$LargeResolution/$CurrentSlide.jpg ${LargeResolutionWidth}w"></a> -->
+         srcset="../$SmallResolution/$CurrentSlide.jpg ${SmallResolutionWidth}w,
+		 ../$MediumResolution/$CurrentSlide.jpg ${MediumResolutionWidth}w"></a>
+	    <!-- ../$LargeResolution/$CurrentSlide.jpg ${LargeResolutionWidth}w"></a> -->
       <figcaption>
-        <table class="gal_slide">
+        <table class="gal_slide" width=100%>
+          <col style="width:5%">
+          <col style="width:5%">
+          <col style="width:80%">
+          <col style="width:5%">
+          <col style="width:5%">
           <tr>
             <td>
-              <a class="gal_slide" href="$PreviousSlide.html"><img src="arrow-left.svg"></a>&nbsp;&nbsp;
+              <a class="gal_slide" href="$PreviousSlide.html"><img src="arrow-left.svg"></a>
             </td>
             <td>
-              &nbsp;<a class="gal_slide" href="index.html"><img src="arrow-up.svg"></a>
+              <a class="gal_slide" href="index.html"><img src="arrow-up.svg"></a>
             </td>
             <td>
               $SlideCaption
             </td>
             <td>
-              &nbsp;
+              <!-- &nbsp; -->
               <!-- simgal: if geoloc -->
 	      <a class="gal_slide" target="_blank" href="http://www.google.com/maps/search/?api=1&hl=$Language&query=$GPSPosition"><img src="map-pin.svg"></a>
               <!-- simgal: end of if geoloc -->
             </td>
             <td>
-              &nbsp;<a class="gal_slide" href="$NextSlide.html"><img src="arrow-right.svg"></a>
+              <a class="gal_slide" href="$NextSlide.html"><img src="arrow-right.svg"></a>
             </td>
           </tr>
         </table>
